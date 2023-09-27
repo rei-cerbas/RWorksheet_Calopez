@@ -59,10 +59,81 @@ sum_51to91
 int_1to1k <- seq(1,1000)
 int_1to1k
 
-#a. How many data points form 8.1 to 8.4
+#a. How many data points form 8.1 to 8.4 
 #b. Write the R Code and its output from 8.1 to 8.4
 intVector <- length (seq(1,100)) + length (seq(20,60)) + length (mean(seq(20,60))) + length (sum(seq(51,91)))
 intVector
 
 #c. For 8.5 find only maximum data points until 10.
+max_int1_1k <-seq(1,1000)[1:10]
+max_int1_1k
+
+#9. *Print a vector with the integers between 1 and 100 that are not divisible by 3, 5 and 7 using filter option. 
+#filter(function(i) { all(i %% c(3,5,7) != 0) }, seq(100)) 
+#Write the R code and its output.
+
+int_notdiv<-Filter(function(i) { all(i %% c(3,5,7) != 0) }, seq(100)) 
+int_notdiv
+
+#10. Generate a sequence backwards of the integers from 1 to 100.
+#Write the R code and its output.
+
+rev_1to100 <- rev(seq(1,100))
+rev_1to100
+
+#11. List all the natural numbers below 25 that are multiples of 3 or 5.
+#Find the sum of these multiples.
+
+multiple <- Filter(function(i) { all(i %% 3 == 0 |i %% 5 == 0 ) !=0 }, seq(24,1))
+multiple
+sum_multiples <- sum(multiple)
+sum_multiples
+
+#a. How many data points from 10 to 11? ans. 112
+
+#b.
+data_points <- length(rev_1to100) + length(multiple) + length(sum_multiples)
+data_points
+
+
+#12. Statements can be grouped together using braces ‘{’ and ‘}’. A group of statementsis sometimes called a block. Single statements are evaluated when a new line is typed atthe end of the syntactically complete statement. Blocks are not evaluated until a new line is entered after the closing brace.
+#Enter this statement:
+{ x <- 0+ x + 5 + }
+#Describe the output.
+#ans. This line of code can't be run because there's an error. By removing the extra plus sign at the end of the equation changes the whole code. 
+
+#13. *Set up a vector named score, consisting of 72, 86, 92, 63, 88, 89, 91, 92, 75, 75 and 77. To access individual elements of an atomic vector, one generally uses the x[i] construction.
+# Find x[2] and x[3]. Write the R code and its output.
+
+scoreVector <- c(72, 86, 92, 63, 88, 89, 91, 92, 75,
+                 75, 77)
+score1<- scoreVector[2]
+score1
+
+score2 <- scoreVector[3]
+score2
+
+#14. *Create a vector a = c(1,2,NA,4,NA,6,7).
+# a. Change the NA to 999 using the codes print(a,na.print="-999").
+
+a = c(1,2,NA,4,NA,6,7)
+print(a,na.print="999")
+
+
+# b. Write the R code and its output. Describe the output.
+
+a = c(1,2,NA,4,NA,6,7)
+print(a,na.print="999")
+
+#output:  1   2 999   4 999   6   7
+#this code replaces the NA to 999 and prints the vector a.
+
+# 15. A special type of function calls can appear on the left hand side of the assignment operator as in > class(x) <- "foo". Follow the codes below:
+
+name = readline(prompt="Input your name: ")
+age = readline(prompt="Input your age: ")
+print(paste("My name is",name, "and I am",age ,"years old."))
+print(R.version.string)
+# What is the output of the above code?
+# The output above is "My name is Rey Angelo and I am 20 years old."
 
