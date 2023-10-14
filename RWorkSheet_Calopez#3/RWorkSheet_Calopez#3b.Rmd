@@ -39,7 +39,9 @@ summary(dfHouseholdData)
 
 #d
 
-first_second <- dfHouseholdData[1:2,]
+#first_second <- dfHouseholdData[1:2,]
+#first_second
+first_second <- head(dfHouseholdData, 2)
 first_second
 
 #e
@@ -47,7 +49,7 @@ third5and2nd4 <- dfHouseholdData[c(3,5),c(2,4)]
 third5and2nd4
 
 #f
-types_houses <- dfHouseholdData[,1]
+types_houses <- dfHouseholdData$Types.of.Houses
 types_houses
 
 
@@ -80,67 +82,56 @@ print(str(dfofNum2))
 
 #it prints the structure of the dataframe
 
+#3. Create a .csv file of this. Save it as HouseholdData.csv
 
-#3
+newRespondent <- c(1:10)
+newSex <- c("Male", "Female", "Female", "Male", "Male", "Female", "Female", "Male", "Female", "Male")
+newFathersOccupation <- c(1,2,3,3,1,2,2,3,1,3)
+newPersonsAtHome <- c(5,7,3,8,6,4,4,2,11,6)
+newSiblingsAtSchool <- c(2,3,0,5,2,3,1,2,6,2)
+newTypesHouses <- c("Wood", "Congrete", "Congrete", "Wood", "Semi-congrete", "Semi-congrete", "Wood", "Semi-congrete", "Semi-congrete", "Congrete")
 
-df2Respondents <- c(1,2,3,4,5,6,7,8,9,10)
-df2Sex <- c("Male", "Female", "Female", "Male", "Male", "Female", "Female", "Male","Female", "Male")
-df2FathersOcc <- c(1,2,3,3,1,2,2,3,1,3)
-df2PersonatHome<- c(5,7,3,8,6,4,4,2,11,6)
-df2SiblingsatSch <- c(2,3,0,5,2,3,1,2,6,2)
-df2TypeofHouses <- c("Wood", "Congrete", "Congrete", "Wood", "Semi-congrete", "Semi-congrete", "Wood", "Semi-congrete", "Semi-congrete", "Congrete")
+HouseholdData <- data.frame( 
+  Respondents = newRespondent,
+  Sex = newSex, 
+  FatherOccupation = newFathersOccupation, 
+  PersonsAtHome=newPersonsAtHome, 
+  SiblingsAtSchool=newSiblingsAtSchool, 
+  TypesOfHouses=newTypesHouses)
+HouseholdData
 
-df2HouseholdData <- data.frame("Respondetns" = df2Respondents,
-                               "Sex" = df2Sex,
-                               "Fathers Occupation" = df2FathersOcc,
-                               "Person at Home" = df2PersonatHome,
-                               "Siblings at Schoo" = df2SiblingsatSch,
-                               "Type of Houses" = df2TypeofHouses)
-df2HouseholdData
+write.csv(HouseholdData, file ="HouseholdData.csv")
 
+#a.Import the csv file into the R environment. Write the codes.
+  
+imported <- read.csv("HouseholdData.csv")
+imported
 
+#b. Convert the Sex into factor using factor() function and change it into integer.[Legend: Male = 1 and Female = 2]. Write the R codes and its output.
 
-write.csv(df2HouseholdData, file = "HouseholdData.csv")
+imported$Sex <- factor(imported$Sex, levels = c("Male", "Female"))
+imported$Sex<- as.integer(imported$Sex)
+imported$Sex
 
+# c. Convert the Type of Houses into factor and change it into integer. [Legend: Wood = 1; Congrete = 2; Semi-Congrete = 3]. Write the R codes and its output.
 
-#3a
+imported$HouseType <- factor(imported$TypesOfHouses, levels = c("Wood", "Congrete", "Semi-congrete"))
+imported$HouseType <- as.integer(imported$HouseType)
+imported$HouseType
 
-csvHouseholdData <- read.csv(file = "HouseholdData.csv")
-csvHouseholdData
+#d.On father’s occupation, factor it as Farmer = 1; Driver = 2; and Others = 3. What is the R code and its output?
 
+imported$FatherOccupation <- factor(imported$FatherOccupation, levels = c(1,2,3), labels = c("Farmer", "Driver", "Others"))
+imported$FatherOccupation
 
-#3b
+# e. Select only all females respondent that has a father whose occupation is driver. Write the codes and its output.
 
+femaleDriver <- imported[imported$Sex == 2 & imported$FatherOccupation == "Driver",]
+femaleDriver
 
-csvHouseholdDataSex <- as.integer(factor(csvHouseholdData$Sex, levels = c("Male", "Female")))
-csvHouseholdDataSex
-
-
-
-#3c
-
-
-csvHouseholdDataTypeofHouses <- as.integer(factor(csvHouseholdData$Type.of.Houses, levels = c("Wood", "Congrete","Semi-congrete")))
-
-csvHouseholdDataTypeofHouses
-
-
-#3d
-#its already on int type
-csvHouseholdData$Fathers.Occupation
-csvHouseholdDataFathersOcc <- as.integer(factor(csvHouseholdData$Fathers.Occupation, levels = c("")))
-csvHouseholdDataFathersOcc
-
-#3e
-
-csvHouseholdDataFemaleFatherOcc <- csvHouseholdData[csvHouseholdData$Sex == "Female" & csvHouseholdData$Fathers.Occupation == 2, c(3,4)]
-csvHouseholdDataFemaleFatherOcc
-
-
-#3f
-
-csvHouseholdDataSibmorethan5 <- csvHouseholdData[csvHouseholdData$Siblings.at.Schoo >= 5 , c(2,6)]
-csvHouseholdDataSibmorethan5
+# f. Select the respondents that have greater than or equal to 5 number of siblings attending school. Write the codes and its output.
+upper_five <- imported[imported$SiblingsAtSchool >= 5,]
+upper_five 
 
 
 #4
