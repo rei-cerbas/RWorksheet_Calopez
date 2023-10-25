@@ -1,0 +1,103 @@
+---
+title: "RWorkSheet#4a"
+output: pdf_document
+date: "2023-10-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+# 1. The table below shows the data about shoe size and height. Create a data frame. 
+# a. Describe the data.
+
+
+df <- data.frame( Shoe_Size = c(6.5,9.0,8.5,8.5,10.5,7.0,9.5,9.0,13.0,7.5,10.5,8.5,12.0,10.5, 13.0, 11.5, 8.5, 5.0, 10.0, 6.5 , 7.5, 8.5, 10.5, 8.5, 10.5, 11.0, 9.0, 13.0),
+                         Height = c(66.0,68.0,64.5,65.0,70.0,64.0,70.0,71.0,72.0,64.0,74.5,67.0,71.0,71.0, 77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 69.0, 72.0, 70.0, 69.0, 70.0),
+                         Gender = c('F','F','F','F','M','F','F','F','M','F','M','F','M','M', 'M', 'M', 'F','F', 'M', 'F', 'F', 'M', 'M', 'F', 'M', 'M', 'M', 'M')
+)
+df
+
+# b. Create a subset by males and females with their corresponding shoe size and height.
+# What its result? Show the R scripts.
+df_males <- subset(df, Gender == 'M')
+df_females <- subset(df, Gender == 'F')
+df_males
+df_females
+
+# c.Find the mean of shoe size and height of the respondents. Write the R scripts and its result.
+mean_shoe_size <- mean(df$Shoe_Size)
+mean_height <- mean(df$Height)
+paste("The mean shoe size of the respondents is:", mean_shoe_size)
+paste("The mean height of the respondents is:", mean_height)
+
+# d. Is there a relationship between shoe size and height? Why?
+
+
+
+
+
+# 2.
+
+# Constructing the character vector months
+months_vector <- c("March","April","January","November","January",
+                   "September","October","September","November","August",
+                   "January","November","November","February","May","August",
+                   "July","December","August","August","September","November","February",
+                   "April")
+
+# Converting the character vector months to a factor
+factor_months_vector <- factor(months_vector)
+
+# Printing out the result
+factor_months_vector
+
+# 3. 
+
+summary(months_vector)
+summary(factor_months_vector)
+
+# 4.
+
+direction <- c ("East", "West", "North")
+direction
+frequency <- c (1,4,3)
+frequency 
+
+factor_data <- factor (c(direction, frequency))
+factor_data
+
+new_order_data <- factor(factor_data,levels = c("East","West","North"))
+print(new_order_data)
+
+# 5. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
