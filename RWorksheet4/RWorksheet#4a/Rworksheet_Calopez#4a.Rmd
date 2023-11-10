@@ -1,0 +1,222 @@
+---
+title: "RWorkSheet#4a"
+output: pdf_document
+date: "2023-10-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+1.
+```{r}
+#The table below shows the data about shoe size and height. Create a data frame. 
+#a. Describe the data.
+
+df <- data.frame( 
+  Shoe_Size = c(6.5,9.0,8.5,8.5,10.5,7.0,9.5,9.0,13.0,7.5,10.5,8.5,12.0,10.5, 13.0, 11.5, 8.5, 5.0, 10.0, 6.5 , 7.5, 8.5, 10.5, 8.5, 10.5, 11.0, 9.0, 13.0),
+ Height = c(66.0,68.0,64.5,65.0,70.0,64.0,70.0,71.0,72.0,64.0,74.5,67.0,71.0,71.0, 77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 69.0, 72.0, 70.0, 69.0, 70.0),
+ Gender = c('F','F','F','F','M','F','F','F','M','F','M','F','M','M', 'M', 'M', 'F','F', 'M', 'F', 'F', 'M', 'M', 'F', 'M', 'M', 'M', 'M')
+)
+df
+
+# b. Create a subset by males and females with their corresponding shoe size and height.
+# What its result? Show the R scripts.
+df_males <- subset(df, Gender == 'M')
+df_females <- subset(df, Gender == 'F')
+df_males
+df_females
+
+# c.Find the mean of shoe size and height of the respondents. Write the R scripts and its result.
+mean_shoe_size <- mean(df$Shoe_Size)
+mean_height <- mean(df$Height)
+paste("The mean shoe size of the respondents is:", mean_shoe_size)
+paste("The mean height of the respondents is:", mean_height)
+
+# d. Is there a relationship between shoe size and height? Why?
+```
+
+2.
+```{r}
+# Constructing the character vector months
+months_vector <- c("March","April","January","November","January",
+                   "September","October","September","November","August",
+                   "January","November","November","February","May","August",
+                   "July","December","August","August","September","November","February",
+                   "April")
+
+# Converting the character vector months to a factor
+factor_months_vector <- factor(months_vector)
+
+# Printing out the result
+factor_months_vector
+```
+
+3. 
+```{r}
+summary(months_vector)
+summary(factor_months_vector)
+
+```
+
+```{r}
+#4.Create a vector and factor for the table below.
+
+direction <- c("East", "West", "North")
+frequency <- c(1,4,3)
+
+factor_data <- factor(c(direction,frequency))
+factor_data
+
+new_order_data <- factor(factor_data,levels = c("East","West","North"))
+print(new_order_data)
+```
+
+5.
+```{r}
+read.table(file = "/cloud/project/RWorksheet#4a/import_march.csv", header = TRUE, sep = ",")
+reading <- read.csv("import_march.csv")
+reading
+
+```
+
+6
+```{r}
+randomNum <- readline(prompt = "Enter number from 1 to 50: ")
+
+#error cannot knit if there is as.numeric
+#randomNum <- as.numeric(randomNum)
+
+paste("The number you have chosen is", randomNum)
+
+if (randomNum > 50) {
+  paste("The number selected is beyond the range of 1 to 50")
+} else if (randomNum == 20) {
+  paste("TRUE")
+} else {
+  paste(randomNum)
+}
+
+```
+
+7
+```{r}
+minimumBills <- function(price) {
+ 
+  min_bills <- price %/% 50
+  paste("The minimum no. of bills:", min_bills)
+}
+
+minimumBills(900)
+```
+
+8.a
+```{r}
+names <- c("Annie", "Thea", "Steve", "Hanna")
+grade1 <- c(85,65,75,95)
+grade2 <- c(65,75,55,75)
+grade3 <- c(85,90,80,100)
+grade4 <- c(100,90,85,90)
+
+grade <- data.frame(
+  Name = names,
+  Grade1 = grade1,
+  Grade2 = grade2,
+  Grade3 = grade3,
+  Grade4 = grade4
+)
+grade
+```
+
+8.b
+```{r}
+grade$Average <- (grade$Grade1 + grade$Grade2 + grade$Grade3 + grade$Grade4) / 4
+
+highScorers <- grade[grade$Average > 90,]
+highScorers
+
+if (nrow(highScorers) > 0) {
+  paste(highScorers$Name, "'s average grade this semester is", highScorers$Average)
+} else {
+  paste("No students have an average math score over 90.")
+}
+```
+
+
+8.c
+```{r}
+firstTest <- sum(grade$Grade1) / nrow(grade)
+firstTest
+
+secondTest <- sum(grade$Grade2) / nrow(grade)
+secondTest
+
+thirdTest <- sum(grade$Grade3) / nrow(grade)
+thirdTest
+
+fourthTest <- sum(grade$Grade4) / nrow(grade)
+fourthTest
+
+if (firstTest < 80) {
+  paste("The 1st test was difficult.")
+} else if(secondTest < 80) {
+  paste("The 2nd test was difficult.")
+} else if(thirdTest < 80) {
+  paste("The 3rd test was difficult.")
+} else if(fourthTest < 80) {
+  paste("The 4th test was difficult.")
+} else {
+  paste("No test had an average score less than 80.")
+}
+```
+
+8.d
+```{r}
+#ANNIE GRADE
+if (grade$Grade1[1] > 90) {
+  print(paste(grade$Name[1], "’s highest grade this semester is", grade$Grade1[1], ".", sep = ""))
+} else if (grade$Grade2[1] > 90) {
+  print(paste(grade$Name[1], "’s highest grade this semester is", grade$Grade2[1], ".", sep = ""))
+} else if (grade$Grade3[1] > 90) {
+  print(paste(grade$Name[1], "’s highest grade this semester is", grade$Grade3[1], ".", sep = ""))
+} else if (grade$Grade4[1] > 90) {
+  print(paste(grade$Name[1], "’s highest grade this semester is", grade$Grade4[1], ".", sep = ""))
+}
+
+#THEA GRADE
+if (grade$Grade1[2] > 90) {
+  print(paste(grade$Name[2], "’s highest grade this semester is", grade$Grade1[2], ".", sep = ""))
+} else if (grade$Grade2[2] > 90) {
+  print(paste(grade$Name[2], "’s highest grade this semester is", grade$Grade2[2], ".", sep = ""))
+} else if (grade$Grade3[2] > 90) {
+  print(paste(grade$Name[2], "’s highest grade this semester is", grade$Grade3[2], ".", sep = ""))
+} else if (grade$Grade4[2] > 90) {
+  print(paste(grade$Name[2], "’s highest grade this semester is", grade$Grade4[2], ".", sep = ""))
+}
+
+#STEVE GRADE
+if (grade$Grade1[3] > 90) {
+  print(paste(grade$Name[3], "’s highest grade this semester is", grade$Grade1[3], ".", sep = ""))
+} else if (grade$Grade2[3] > 90) {
+  print(paste(grade$Name[3], "’s highest grade this semester is", grade$Grade2[3], ".", sep = ""))
+} else if (grade$Grade3[3] > 90) {
+  print(paste(grade$Name[3], "’s highest grade this semester is", grade$Grade3[3], ".", sep = ""))
+} else if (grade$Grade4[3] > 90) {
+  print(paste(grade$Name[3], "’s highest grade this semester is", grade$Grade4[3], ".", sep = ""))
+}
+
+#HANNA GRADE
+if (grade$Grade1[4] > 100) {
+  print(paste(grade$Name[4], "’s highest grade this semester is", grade$Grade1[4], ".", sep = ""))
+} else if (grade$Grade2[4] >= 100) {
+  print(paste(grade$Name[4], "’s highest grade this semester is", grade$Grade2[4], ".", sep = ""))
+} else if (grade$Grade3[4] >= 100) {
+  print(paste(grade$Name[4], "’s highest grade this semester is", grade$Grade3[4], ".", sep = ""))
+} else if (grade$Grade4[4] >= 100) {
+  print(paste(grade$Name[4], "’s highest grade this semester is ", grade$Grade4[4], ".", sep = ""))
+}
+
+```
+
+
