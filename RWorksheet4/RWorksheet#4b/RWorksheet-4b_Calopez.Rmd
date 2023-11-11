@@ -182,15 +182,15 @@ alexa_file
 
 7a. Rename the white and black variants by using gsub() function.
 ```{r}
-alexa_file$variation <- gsub("Black  Dot", "BlackDot", alexa_file$variation)
-alexa_file$variation <- gsub("Black  Plus", "BlackPlus", alexa_file$variation)
-alexa_file$variation <- gsub("Black  Show", "BlackShow", alexa_file$variation)
-alexa_file$variation <- gsub("Black  Spot", "BlackSpot", alexa_file$variation)
+alexa_file$variation <- gsub("Black  Dot","BlackDot",alexa_file$variation)
+alexa_file$variation <- gsub("Black  Plus","BlackPlus",alexa_file$variation)
+alexa_file$variation <- gsub("Black  Show","BlackShow",alexa_file$variation)
+alexa_file$variation <- gsub("Black  Spot","BlackSpot",alexa_file$variation)
 
-alexa_file$variation <- gsub("White  Dot", "WhiteDot", alexa_file$variation)
-alexa_file$variation <- gsub("White  Plus", "WhitePlus", alexa_file$variation)
-alexa_file$variation <- gsub("White  Show", "WhiteShow", alexa_file$variation)
-alexa_file$variation <- gsub("White  Spot", "WhiteSpot", alexa_file$variation)
+alexa_file$variation <- gsub("White  Dot","WhiteDot",alexa_file$variation)
+alexa_file$variation <- gsub("White  Plus","WhitePlus",alexa_file$variation)
+alexa_file$variation <- gsub("White  Show","WhiteShow",alexa_file$variation)
+alexa_file$variation <- gsub("White  Spot","WhiteSpot",alexa_file$variation)
 
 alexa_file
 ```
@@ -219,34 +219,51 @@ totalPlot <- barplot(var_total$n,
         xlab = "Name of Variations",
         ylab = "Total of each Variatons",
         col = 1:16,
-        space = 2)
+        space = 2,
+        cex.names = 0.4,
+        las = 2 )
+png("totalPlot.png")
+dev.off()
+knitr::include_graphics("/cloud/project/RWorksheet4/RWorksheet#4b/totalPlot.png")
+
+
 ```
 
 7d. Create a barplot() for the black and white variations. Plot it in 1 frame, side by side. Complete the details of the chart.
 
 ```{r}
+library(graphics)
+blackVars <- var_total[var_total$`alexa_file$variation` %in% c("Black","BlackPlus","BlackShow","BlackSpot","BlackDot"), ]
 
-blackVars <- var_total[var_total$`alexa_file$variation` %in% c("Black", "BlackPlus" , "BlackShow" ,"BlackSpot" , "BlackDot"), ]
-
-whiteVars <- var_total[var_total$`alexa_file$variation` %in% c("White", "WhiteDot", "WhitePlus", "WhiteShow", " WhiteSpot"), ]
+whiteVars <- var_total[var_total$`alexa_file$variation` %in% c("White","WhiteDot","WhitePlus","WhiteShow","WhiteSpot"), ]
 
 par(mfrow = c(1,2))
 
-barplot(height = blackVars$n,
+blackPlot <- barplot(height = blackVars$n,
         names.arg = blackVars$`alexa_file$variation`,
-        col = c("black"),
+        col = c("black","cyan2","brown2","limegreen","cornflowerblue"),
         main = "Black Variations",
         xlab = "Variation",
         ylab = "Count",
-        border = "black")
+        border = "black",
+        space = 0.5,
+        cex.names = 0.4)
 
-barplot(height = whiteVars$n,
+
+whitePlot <- barplot(height = whiteVars$n,
         names.arg = whiteVars$`alexa_file$variation`,
-        col = c("black"),
+        col = c("black","brown2","limegreen","cornflowerblue","cyan2"),
         main = "White Variations",
         xlab = "Variation",
         ylab = "Count",
-        border = "black")
+        border = "black",
+        space = 0.5,
+        cex.names = 0.4)
+
+png("BlackN_whitePlot.png")
+dev.off()
+knitr::include_graphics("/cloud/project/RWorksheet4/RWorksheet#4b/BlackN_whitePlot.png")
+
 ```
 
 
