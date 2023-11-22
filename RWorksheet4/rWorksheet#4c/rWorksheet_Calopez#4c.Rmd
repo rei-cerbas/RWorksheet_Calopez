@@ -1,0 +1,23 @@
+---
+title: "rWorksheet$4c"
+author: "Rey Angelo Calopez BSIT 2-C"
+date: "2023-11-22"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+1.
+a.
+```{r}
+library(readr)
+load_mpg <- read.csv("mpg.csv")
+load_mpg
+```
+b. Which variables from mpg dataset are categorical?
+
+
+```{r}
+
+```
