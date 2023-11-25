@@ -77,7 +77,8 @@ names(unique_count) <- c("Manufacturer", "Number of Models")
 unique_count
 
 ggplot(unique_count, aes(x = Manufacturer, y = `Number of Models`)) +
-geom_bar(stat = "identity", fill = "violet")
+geom_bar(stat = "identity", fill = "purple") + theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 
@@ -85,7 +86,8 @@ geom_bar(stat = "identity", fill = "violet")
 2a.What does ggplot(mpg, aes(model, manufacturer)) + geom_point() show?
 ```{r}
 library(ggplot2)
-ggplot(open_mpg, aes(model, manufacturer)) + geom_point()
+ggplot(open_mpg, aes(model, manufacturer)) + geom_point() + theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 ans. Plots the mpgdataset with model on the x-axis and manufacturer on the y-axis. Each point represents a car model
 
@@ -136,7 +138,8 @@ mpg_observation_top20  <- ggplot(mpg_observation_top20, aes(x = model, y = count
   geom_bar(stat = "identity") + 
   labs(title = "Number of Cars per Model", 
        x = "Model" , 
-       y = "Number of cars")
+       y = "Number of cars") + theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 90, hjust = 1))
 
 mpg_observation_top20 
 ```
@@ -291,10 +294,11 @@ var_counts
 
 ```{r}
 plot_alexafile <- ggplot(open_alexa_data, aes(x = variation)) +
-  geom_bar(fill = "violet") +
+  geom_bar(fill = "purple") +
   labs(title = "Variations",
        x = "Variation",
-       y = "Count")
+       y = "Count") + theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 90, hjust = 1))
 
 plot_alexafile
 ```
@@ -317,7 +321,7 @@ alexa_monthly_reviews <- table(alexa_Month)
 alexa_monthly_reviews
 
 alexa_lineplot <- ggplot(alexa_Month, aes(x = month, y = n, group = 1)) +
-  geom_line(color = "violet") +
+  geom_line(color = "purple") +
   labs(title = "Number of Verified Reviews Over Time",
        x = "Date",
        y = "Number of Verified Reviews")
@@ -343,10 +347,11 @@ highest_ratings
 # The walnut finish variation has the highest rating
 
 ggplot(alexa_variation_ratings, aes(x = variation, y = avg_rating)) +
-  geom_bar(stat = "identity", fill = "violet") +
+  geom_bar(stat = "identity", fill = "purple") +
   labs(title = "Average Ratings by Variation",
        x = "Variation",
-       y = "Average Rating")
+       y = "Average Rating") + theme(plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 90, hjust = 1))
 
 
 ```
