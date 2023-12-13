@@ -1,0 +1,121 @@
+---
+title: "rWorksheet_5"
+author: "Rey Angelo Calopez BSIT 2-C"
+date: "2023-12-13"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+1. Create a data frame for the table below. Show your solution.
+a. Compute the descriptive statistics using different packages (Hmisc and pastecs).
+Write the codes and its result.
+```{r}
+StudentScore <- data.frame(Student = c(1,2,3,4,5,6,7,8,9,10),
+                           PreTest = c(55,54,47,57,51,61,57,54,63,58),
+                           PostTest = c(61,60,56,63,56,63,59,56,62,61))
+
+StudentScore
+
+#a.Compute the descriptive statistics using different packages (Hmisc and pastecs).
+library(Hmisc)
+library(pastecs)
+
+
+HmiscStats <- describe(StudentScore[,c("PreTest","PostTest")])
+HmiscStats
+
+# Calculate descriptive statistics using pastecs
+pastecsStats <- apply(StudentScore[,c('PreTest','PostTest')], 2, function(x)basic_stats(x))
+pastecsStats
+
+```
+2. The Department of Agriculture was studying the effects of several levels of a fertilizer
+on the growth of a plant. For some analyses, it might be useful to convert the fertilizer
+levels to an ordered factor.
+```{r}
+library(dplyr)
+
+fertilizerLevels <- c(10,10,10, 20,20,50,10,20,10,50,20,50,20,10)
+
+orderedFactor <- factor(fertilizerLevels, levels = unique(fertilizerLevels))
+
+basicStats <- summary(orderedFactor)
+basicStats
+```
+3. Abdul Hassan, president of Floor Coverings Unlimited, has asked you to study the ex-
+ercise levels undertaken by 10 subjects were “l”, “n”, “n”, “i”, “l” , “l”, “n”,
+
+“n”, “i”, “l” ; n=none, l=light, i=intense
+a. What is the best way to represent this in R?
+
+```{r}
+excerciseLevels <- c("n", "l", "n", "n", "l", "l", "n", "n", "i", "l")
+
+ExerciseFactor <- factor(excerciseLevels, levels = c("n","l","i"))
+
+
+basic_stats <- summary(ExerciseFactor)
+basic_stats
+```
+4. Sample of 30 tax accountants from all the states and territories of Australia and their
+individual state of origin is specified by a character vector of state mnemonics as:
+state <- c("tas", "sa", "qld", "nsw", "nsw", "nt", "wa", "wa", "qld",
+"vic", "nsw", "vic", "qld", "qld", "sa", "tas", "sa", "nt",
+"wa", "vic", "qld", "nsw", "nsw", "wa", "sa", "act", "nsw",
+"vic", "vic", "act")
+a. Apply the factor function and factor level. Describe the results.
+```{r}
+state <- c("tas", "sa", "qld", "nsw", "nsw", "nt", "wa", "wa", "qld",
+"vic", "nsw", "vic", "qld", "qld", "sa", "tas", "sa", "nt",
+"wa", "vic", "qld", "nsw", "nsw", "wa", "sa", "act", "nsw",
+"vic", "vic", "act")
+stateFactor <- factor(state)
+stateFactor
+
+summaryState <- summary(stateFactor)
+summaryState
+
+```
+5. From #4 - continuation:
+• Suppose we have the incomes of the same tax accountants in another vector (in suitably
+large units of money)
+incomes <- c(60, 49, 40, 61, 64, 60, 59, 54,
+62, 69, 70, 42, 56, 61, 61, 61, 58, 51, 48,
+65, 49, 49, 41, 48, 52, 46, 59, 46, 58, 43)
+a. Calculate the sample mean income for each state we can now use the special function
+tapply():
+Example: giving a means vector with the components labelled by the levels
+incmeans <- tapply(incomes, statef, mean)
+Note: The function tapply() is used to apply a function, here mean(), to each group
+of components of the first argument, here incomes, defined by the levels of the second
+component, here state 2
+```{r}
+incomes <- c(60, 49, 40, 61, 64, 60, 59, 54,
+62, 69, 70, 42, 56, 61, 61, 61, 58, 51, 48,
+65, 49, 49, 41, 48, 52, 46, 59, 46, 58, 43)
+
+meanIncome <- tapply(incomes, stateFactor, mean)
+meanIncome
+
+```
+b.
+6.Calculate the standard errors of the state income means (refer again to number 3)
+stdError <- function(x) sqrt(var(x)/length(x))
+Note: After this assignment, the standard errors are calculated by:
+incster <- tapply(incomes, statef, stdError)
+a. What is the standard error? Write the codes.
+```{r}
+stdError <- function(x) sqrt(var(x)/length(x))
+incster <- tapply(incomes, state, stdError)
+standardError <- tapply(incomes, stateFactor, stdError)
+standardError
+```
+7. Use the titanic dataset.
+a. subset the titatic dataset of those who survived and not survived. Show the codes
+and its result.
+```{r}
+
+
+```
