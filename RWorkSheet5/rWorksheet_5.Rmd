@@ -27,8 +27,9 @@ HmiscStats <- describe(StudentScore[,c("PreTest","PostTest")])
 HmiscStats
 
 # Calculate descriptive statistics using pastecs
-pastecsStats <- apply(StudentScore[,c('PreTest','PostTest')], 2, function(x)basic_stats(x))
+pastecsStats <- apply(StudentScore[,c('PreTest','PostTest')], 2, function(x) summary(x))
 pastecsStats
+
 
 ```
 2. The Department of Agriculture was studying the effects of several levels of a fertilizer
@@ -117,5 +118,100 @@ a. subset the titatic dataset of those who survived and not survived. Show the c
 and its result.
 ```{r}
 
+# Install and load the 'titanic' package if not already installed
+install.packages("titanic")
+library(titanic)
 
+# Load the Titanic dataset
+data("titanic_train")
+titanic_data <- titanic_train
+
+# Subset the dataset into those who survived and those who did not survive
+survived_data <- subset(titanic_data, Survived == 1)
+not_survived_data <- subset(titanic_data, Survived == 0)
+
+# Show the first few rows of the resulting datasets
+head(survived_data)
+head(not_survived_data)
+
+```
+8. The data sets are about the breast cancer Wisconsin. The samples arrive periodically
+as Dr. Wolberg reports his clinical cases. The database therefore reflects this chronologi https://drive.google.com/file/d/16MFLoehCgx2MJuNSAuB2CsBy6eDIIr-
+u/view?usp=drive_link)
+
+a. describe what is the dataset all about.
+Ans. This data set shows all levels related to breast cancer like clump thickness, size, shape and many more.
+
+d. Compute the descriptive statistics using different packages. Find the values of:
+d.1 Standard error of the mean for clump thickness.
+d.2 Coefficient of variability for Marginal Adhesion.
+d.3 Number of null values of Bare Nuclei.
+d.4 Mean and standard deviation for Bland Chromatin
+d.5 Confidence interval of the mean for Uniformity of Cell Shape
+
+
+```{r}
+library(readr)
+library(rcompanion)
+breastcancer_wisconsin <- read_csv("breastcancer_wisconsin.csv",col_types = cols(
+  id = col_double(),
+  clump_thickness = col_double(),
+  size_uniformity = col_double(),
+  shape_uniformity = col_double(),
+  marginal_adhesion = col_double(),
+  epithelial_size = col_double(),
+  bare_nucleoli = col_character(),
+  bland_chromatin = col_double(),
+  normal_nucleoli = col_double(),
+  mitoses = col_double(),
+  class = col_double()
+))
+breastcancer_wisconsin
+
+#d.1 Standard error of the mean for clump thickness.
+clump_thickness <- sd(breastcancer_wisconsin$clump_thickness) / sqrt(length(breastcancer_wisconsin$clump_thickness))
+cat("d.1 Standard Error of the Mean for Clump Thickness:", clump_thickness, "\n")
+
+# d.2 Coefficient of variability for Marginal Adhesion.
+marginal_adhesion <- sd(breastcancer_wisconsin$marginal_adhesion) / mean(breastcancer_wisconsin$marginal_adhesion) 
+cat("d.2 Coefficient of Variability for Marginal Adhesion:", marginal_adhesion, "%\n")
+
+# d.3 Number of null values of Bare Nuclei.
+values_bare_nuclei <- sum(is.na(breastcancer_wisconsin$bare_nucleoli))
+cat("d.3 Number of Null Values in Bare Nuclei:", values_bare_nuclei, "\n")
+
+# d.4 Mean and standard deviation for Bland Chromatin.
+mean_bland_chromatin <- mean(breastcancer_wisconsin$bland_chromatin)
+mean_bland_chromatin
+sd_bland_chromatin <- sd(breastcancer_wisconsin$bland_chromatin)
+cat("d.4 Mean for Bland Chromatin:", mean_bland_chromatin, "\n")
+cat("   Standard Deviation for Bland Chromatin:", sd_bland_chromatin, "\n")
+
+
+# d.5 Confidence interval of the mean for Uniformity of Cell Shape.
+uniformity_of_cell_shape <- t.test(breastcancer_wisconsin$shape_uniformity, conf.level = 0.95)$conf.int
+cat("d.5 Confidence Interval for the Mean of Uniformity of Cell Shape:", uniformity_of_cell_shape, "\n")
+
+
+```
+9. Export the data abalone to the Microsoft excel file. Copy the codes.
+install.packages("AppliedPredictiveModeling")
+library("AppliedPredictiveModeling")
+view(abalone)
+head(abalone)
+summary(abalone)
+```{r}
+#install.packages("AppliedPredictiveModeling")
+library("AppliedPredictiveModeling")
+
+data(abalone)
+#View(abalone)
+head(abalone)
+summary(abalone)
+
+#export
+
+library(xlsx)
+
+#write.xlsx(abalone, "abalone.xlsx")
 ```
